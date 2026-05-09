@@ -23,18 +23,56 @@ int main(int argv, char** argc){
     return 1;
   }
 
+  //declare sets
+  set<Card> player1, player2;
+
   //Read each file
   while (getline (cardFile1, line) && (line.length() > 0)){
-
+    player1.insert(Card(line));
   }
   cardFile1.close();
 
 
   while (getline (cardFile2, line) && (line.length() > 0)){
-
+    player2.insert(Card(line));
   }
   cardFile2.close();
+
+  // Game logic:
+  // Find shared cards
+  set<Card> shared;
+  for (auto& card : player1) {
+    if (player2.count(card)) {
+      shared.insert(card);
+    }
+  }
+
+  set<Card> alice_final = player1; // copy original cards
+  set<Card> bob_final = player2; 
+
+  while (!shared.empty()) {
+    // Alice's turn
+    auto aliceIt = shared.begin();
+    cout << "Alice picked matching card " << aliceIt->cardname << endl;
+    alice_final.erase(*aliceIt);
+    bob_final.erase(*aliceIt);
+    shared.erase(aliceIt);
+
+    if (shared.empty()) break;
+
+    // Bob's turn
+    auto bobIt = shared.rbegin();
+    cout << endl << "Bob picked matching card " << bobIt->cardname << endl;
+    alice_final.erase(*bobIt);
+    bob_final.erase(*bobIt);
+    shared.erase(*bobIt);
+}
+
   
-  
+  cout << endl << "Alice's cards:" << endl;
+  for (auto& card : alice_final) cout << card.cardname << endl;
+  cout << "Bob's cards:" << endl;
+  for (auto& card : bob_final) cout << card.cardname << endl;
+
   return 0;
 }
