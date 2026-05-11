@@ -37,7 +37,7 @@ int main(int argv, char** argc){
   }
   cardFile2.close();
 
-  playGame(player1, player2);  
+  playGame(player1, player2);  // call game logic function
   
   return 0;
 }

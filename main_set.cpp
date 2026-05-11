@@ -66,23 +66,23 @@ int main(int argv, char** argc){
 
   while (!shared.empty()) {
     // Alice's turn
-    auto aliceIt = shared.begin();
+    auto aliceIt = shared.begin(); // starts with smallest card values
     cout << "Alice picked matching card " << aliceIt->cardname << endl;
     alice_final.erase(*aliceIt);
     bob_final.erase(*aliceIt);
-    shared.erase(aliceIt);
+    shared.erase(aliceIt); // delete from shared so bob can't delete too
 
-    if (shared.empty()) break;
+    if (shared.empty()) break; // check if allice found last shared card, break so bob doesnt try to access empty set. 
 
     // Bob's turn
-    auto bobIt = shared.rbegin();
+    auto bobIt = shared.rbegin(); // starts with largest card value
     cout << "Bob picked matching card " << bobIt->cardname << endl;
     alice_final.erase(*bobIt);
     bob_final.erase(*bobIt);
-    shared.erase(*bobIt);
+    shared.erase(*bobIt); // delete from shared so alice cant delte too
 }
 
-  
+  // read out final cards. 
   cout << endl << "Alice's cards:" << endl;
   for (auto& card : alice_final) cout << card.cardname << endl;
   cout << endl << "Bob's cards:" << endl;
