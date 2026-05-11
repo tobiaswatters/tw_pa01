@@ -26,7 +26,10 @@ Card::Card(string suitVal) {
 
     if (50 <= suitVal[2] && suitVal[2] <= 57) { // value of card is a digit
         key += suitVal[2] - 48; // ASCII logic
-    } else if (suitVal[2] == 'j') {
+    } else if (suitVal[2] == '1') {
+        key += 10;
+    }
+    else if (suitVal[2] == 'j') {
         key += 11;
     } else if (suitVal[2] == 'q') {
         key += 12;

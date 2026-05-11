@@ -37,6 +37,15 @@ int main(int argv, char** argc){
     player2.insert(Card(line));
   }
   cardFile2.close();
+  /*
+  // debugging 1:
+  cout << "Alice's ordered cards (bicycle)" << endl;
+  for (auto& card : player1) cout << card.cardname << endl;
+
+  cout << "Bob's ordered cards (SF)" << endl;
+  for (auto& card : player2) cout << card.cardname << endl;
+  */
+
 
   // Game logic:
   // Find shared cards
@@ -46,6 +55,11 @@ int main(int argv, char** argc){
       shared.insert(card);
     }
   }
+
+  /* debugging 2:
+  cout << endl << "Shared cards, ordered:" << endl;
+  for (auto& card : shared) cout << card.cardname << endl;
+  */
 
   set<Card> alice_final = player1; // copy original cards
   set<Card> bob_final = player2; 
@@ -62,7 +76,7 @@ int main(int argv, char** argc){
 
     // Bob's turn
     auto bobIt = shared.rbegin();
-    cout << endl << "Bob picked matching card " << bobIt->cardname << endl;
+    cout << "Bob picked matching card " << bobIt->cardname << endl;
     alice_final.erase(*bobIt);
     bob_final.erase(*bobIt);
     shared.erase(*bobIt);
@@ -71,7 +85,7 @@ int main(int argv, char** argc){
   
   cout << endl << "Alice's cards:" << endl;
   for (auto& card : alice_final) cout << card.cardname << endl;
-  cout << "Bob's cards:" << endl;
+  cout << endl << "Bob's cards:" << endl;
   for (auto& card : bob_final) cout << card.cardname << endl;
 
   return 0;
